@@ -91,20 +91,19 @@ export default function SalesPage() {
                             ) : (
                                 ventas.map((salida) => (
                                     <tr key={salida.id} className="hover:bg-orange-50/30 transition-colors cursor-pointer group">
-                                        <td className="p-4 text-sm font-bold text-gray-800 group-hover:text-orange-600 transition-colors">{salida.referencia}</td>
-                                        <td className="p-4 text-sm font-medium text-gray-600">{salida.cliente || 'Consumidor Final'}</td>
-                                        <td className="p-4 text-sm text-gray-500">{new Date(salida.fechaEmision).toLocaleDateString()}</td>
+                                        <td className="p-4 text-sm font-bold text-gray-800 group-hover:text-orange-600 transition-colors">{salida.referencia || `#${salida.id?.substring(0,8).toUpperCase()}`}</td>
+                                        <td className="p-4 text-sm font-medium text-gray-600">Por: {salida.usuario?.nombre || 'Desconocido'}</td>
+                                        <td className="p-4 text-sm text-gray-500">{salida.fecha ? new Date(salida.fecha).toLocaleDateString() : '-'}</td>
                                         <td className="p-4 text-sm">
                                             <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded-md text-xs font-medium">
                                                 {salida.tipo || 'VENTA'}
                                             </span>
                                         </td>
                                         <td className="p-4 text-sm font-medium text-gray-700 text-right">{salida.detalles?.length || 0} unidades</td>
-                                        <td className="p-4 text-sm font-bold text-gray-800 text-right">${Number(salida.total).toFixed(2)}</td>
+                                        <td className="p-4 text-sm font-bold text-gray-800 text-right">${(salida.detalles?.reduce((acc: number, d: any) => acc + (Number(d.precioUnitario) * d.cantidad), 0) || 0).toFixed(2)}</td>
                                         <td className="p-4 text-center">
-                                            <span className={`px-2.5 py-1 text-xs font-semibold rounded-full ${salida.estado === 'COMPLETADA' || salida.estado === 'Aprobada' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
-                                                }`}>
-                                                {salida.estado}
+                                            <span className={`px-2.5 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700`}>
+                                                COMPLETADA
                                             </span>
                                         </td>
                                     </tr>

@@ -127,15 +127,15 @@ export default function DashboardPage() {
                         ) : (
                             stats.recentMovements.map((mov, i) => (
                                 <tr key={mov.id || i} className="hover:bg-blue-50/30 transition-colors">
-                                    <td className="p-4 text-sm text-gray-600">{new Date(mov.fechaFisica || mov.createdAt).toLocaleDateString()}</td>
+                                    <td className="p-4 text-sm text-gray-600">{new Date(mov.fecha || mov.createdAt).toLocaleDateString()}</td>
                                     <td className="p-4">
-                                        <span className={`px-2.5 py-1 text-xs font-semibold rounded-full ${mov.tipo === 'ENTRADA' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'}`}>
-                                            {mov.tipo}
+                                        <span className={`px-2.5 py-1 text-xs font-semibold rounded-full ${['ENTRADA', 'AJUSTE_POSITIVO'].includes(mov.tipoMovimiento) ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'}`}>
+                                            {mov.tipoMovimiento?.replace('_', ' ')}
                                         </span>
                                     </td>
                                     <td className="p-4 text-sm font-medium text-gray-800">{mov.producto?.nombre || 'Producto Desconocido'}</td>
-                                    <td className="p-4 text-sm font-bold text-gray-700">{mov.tipo === 'ENTRADA' ? '+' : '-'}{mov.cantidad}</td>
-                                    <td className="p-4 text-sm text-gray-500 truncate max-w-[200px]">{mov.motivo}</td>
+                                    <td className="p-4 text-sm font-bold text-gray-700">{['ENTRADA', 'AJUSTE_POSITIVO'].includes(mov.tipoMovimiento) ? '+' : '-'}{mov.cantidad}</td>
+                                    <td className="p-4 text-sm text-gray-500 truncate max-w-[200px]">{mov.motivo || mov.referencia}</td>
                                 </tr>
                             ))
                         )}

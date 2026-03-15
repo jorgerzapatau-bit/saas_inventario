@@ -90,15 +90,15 @@ export default function PurchasesPage() {
                             ) : (
                                 compras.map((compra) => (
                                     <tr key={compra.id} className="hover:bg-blue-50/30 transition-colors cursor-pointer group">
-                                        <td className="p-4 text-sm font-bold text-gray-800 group-hover:text-blue-600 transition-colors">{compra.referencia}</td>
+                                        <td className="p-4 text-sm font-bold text-gray-800 group-hover:text-blue-600 transition-colors">#{compra.id?.substring(0,8).toUpperCase()}</td>
                                         <td className="p-4 text-sm font-medium text-gray-600">{compra.proveedor?.nombre || 'Desconocido'}</td>
-                                        <td className="p-4 text-sm text-gray-500">{new Date(compra.fechaEmision).toLocaleDateString()}</td>
+                                        <td className="p-4 text-sm text-gray-500">{compra.fecha ? new Date(compra.fecha).toLocaleDateString() : '-'}</td>
                                         <td className="p-4 text-sm font-medium text-gray-700 text-right">{compra.detalles?.length || 0} unidades</td>
                                         <td className="p-4 text-sm font-bold text-gray-800 text-right">${Number(compra.total).toFixed(2)}</td>
                                         <td className="p-4 text-center">
-                                            <span className={`px-2.5 py-1 text-xs font-semibold rounded-full ${compra.estado === 'COMPLETADA' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
+                                            <span className={`px-2.5 py-1 text-xs font-semibold rounded-full ${compra.status === 'COMPLETADA' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
                                                 }`}>
-                                                {compra.estado}
+                                                {compra.status}
                                             </span>
                                         </td>
                                     </tr>
